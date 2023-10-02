@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using RideBooking.Model;
 using RideBooking.Service.Services;
 

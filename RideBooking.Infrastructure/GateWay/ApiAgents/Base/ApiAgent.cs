@@ -22,7 +22,7 @@ namespace RideBooking.Infrastructure.GateWay.ApiAgents.Base
 
         public virtual T ToObject<T>(string jsonResponse)
         {
-            return JsonConvert.DeserializeObject<T>(jsonResponse);
+            return JsonConvert.DeserializeObject<T>(jsonResponse)! ;
         }
     }
 }
