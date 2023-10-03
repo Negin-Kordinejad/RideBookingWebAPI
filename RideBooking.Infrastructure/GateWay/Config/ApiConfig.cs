@@ -1,18 +1,36 @@
 ﻿
+using Microsoft.Extensions.Configuration;
+
 namespace RideBooking.Infrastructure.GateWay.Config
 {
+    /// <summary>
+    /// ToDo : Seprate ApiConfig files for every services when they grown.
+    /// </summary>
     public class ApiConfig
     {
-        /// <summary>
-        /// This url valuse should transfer to a config file 
-        /// </summary>
-        public string ListingUrl { get; set; } = $"https://jayridechallengeapi.azurewebsites.net/api/";
+        private readonly IConfiguration _config;
+        private const string ListingUrlForPassengers = "Listing_Url";
+        private const string ListingQuoteRequestAction = "Quote_Request";
+        private const string IpStackUrlForLocation = "IpStack_Url";
+        private const string IpStackCridentialForLocation = "IpStack_Cridential";
 
-        public string ListingQuoteRequest { get; set; } = $"QuoteRequest";
+        public ApiConfig(IConfiguration config)
+        {
+            _config = config;
+            ListingUrl = _config.GetSection(ListingUrlForPassengers).Value!;
+            ListingQuoteRequest = _config.GetSection(ListingQuoteRequestAction).Value!;
+            IpStackUrl = _config.GetSection(IpStackUrlForLocation).Value!;
+            IpStackCridential = _config.GetSection(IpStackCridentialForLocation).Value!;
+        }
 
-        public string IpStackUrl { get; set; } = $"http://api.ipstack.com/";
 
-        public string IpStackCridential { get; set; } = $"?access_key=6250bd112317e8e0044c75bdc8c838af&fields=city";
+        public string ListingUrl { get; private set; }
+
+        public string ListingQuoteRequest { get; private set; }
+
+        public string IpStackUrl { get; private set; }
+
+        public string IpStackCridential { get; private set; }
 
     }
 }
