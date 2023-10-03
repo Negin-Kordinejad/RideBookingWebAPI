@@ -18,7 +18,7 @@ namespace RideBookingWebAPI.Controllers
         }
 
         [HttpGet("{passengers:int}")]
-        public async Task<IActionResult> GetListing(int passengers)
+        public async Task<IActionResult> GetListing(int passengers, string? name)
         {
             var logPreFix = $"ListingsController::GetListing";
             JournyDto response;
@@ -32,7 +32,7 @@ namespace RideBookingWebAPI.Controllers
             //ToDo:An error handler in middleware needs to add.
             try
             {
-                response = await _bookingService.GetListingAsync(passengers);
+                response = await _bookingService.GetListingAsync(passengers, name);
             }
             catch (ArgumentException ex)
             {

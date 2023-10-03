@@ -16,11 +16,12 @@ namespace RideBooking.Service.Services
             _bookingApiAgent = bookingApiAgent;
         }
 
-        public async Task<JournyDto> GetListingAsync(int passengers)
+        public async Task<JournyDto> GetListingAsync(int passengers, string? name)
         {
             var logPriFix = $"BookingService::GetListingAsync:No listing found";
             var listing = await _bookingApiAgent.GetListingByPassengersAsync();
 
+            //  var filteredListing =new IGrouping
             //ToDo: In refactoring will make a response wrapper and middleware error handling to avoid try-cache
             if (listing == null)
             {
@@ -28,10 +29,11 @@ namespace RideBooking.Service.Services
                 throw new ArgumentException($"No listing found.");
             }
 
-            //Get all listing with specific the number of passenger.
-            var filteredListing = listing.listings.GroupBy(l => l.vehicleType.maxPassengers)
-                                                  .Where(g => g.Key == passengers)
-                                                  .FirstOrDefault();
+            //Get all listing with specific the number of passenger. 
+            var filteredListing = listing.listings.Where(s => s.vehicleType.maxPassengers == passengers &&
+                                                                     (name == null ||
+                                                                     s.vehicleType.name.ToLower() == name.ToLower()
+                                                        )).ToList();
 
             if (filteredListing == null)
             {
@@ -42,7 +44,7 @@ namespace RideBooking.Service.Services
             return GetCalculatedTotalPriceListing(filteredListing, listing.from, listing.to);
         }
 
-        private JournyDto GetCalculatedTotalPriceListing(IGrouping<int, Listing> filteredList, string source, string destination)
+        private JournyDto GetCalculatedTotalPriceListing(List<Listing> filteredList, string source, string destination)
         {
             var TtResult = filteredList.Select(s =>
                                                new
