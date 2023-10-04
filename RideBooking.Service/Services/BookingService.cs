@@ -35,7 +35,7 @@ namespace RideBooking.Service.Services
                                                                      s.vehicleType.name.ToLower() == name.ToLower()
                                                         )).ToList();
 
-            if (filteredListing == null)
+            if (filteredListing.Count == 0)
             {
                 _logger.LogError($"{logPriFix} for {passengers} passengers numbers");
                 throw new ArgumentException($"No listing found for {passengers} passengers numbers.");

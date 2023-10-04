@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideBooking.Model", "RideBo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RideBooking.Infrastructure", "RideBooking.Infrastructure", "{67E21740-0215-474A-963F-A7E8B1EC5A21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideBooking.Infrastructure", "RideBooking.Infrastructure\RideBooking.Infrastructure.csproj", "{80F84969-4A6E-4374-864A-441BADCC6157}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideBooking.Infrastructure", "RideBooking.Infrastructure\RideBooking.Infrastructure.csproj", "{80F84969-4A6E-4374-864A-441BADCC6157}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideBooking.Service", "RideBooking.Service\RideBooking.Service.csproj", "{FA35CBE8-6681-485B-B313-4B2BA5FE1CC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideBooking.Service", "RideBooking.Service\RideBooking.Service.csproj", "{FA35CBE8-6681-485B-B313-4B2BA5FE1CC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideBooking.Service.Test", "RideBooking.Service.Test\RideBooking.Service.Test.csproj", "{C2826334-3E1C-43D0-8BBF-D061B634C6BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{FA35CBE8-6681-485B-B313-4B2BA5FE1CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA35CBE8-6681-485B-B313-4B2BA5FE1CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA35CBE8-6681-485B-B313-4B2BA5FE1CC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2826334-3E1C-43D0-8BBF-D061B634C6BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2826334-3E1C-43D0-8BBF-D061B634C6BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2826334-3E1C-43D0-8BBF-D061B634C6BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2826334-3E1C-43D0-8BBF-D061B634C6BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +53,7 @@ Global
 		{C7110F59-E13E-4201-BA74-00082C60E7B9} = {02B62C6A-9566-41E9-866F-249AD177C402}
 		{80F84969-4A6E-4374-864A-441BADCC6157} = {67E21740-0215-474A-963F-A7E8B1EC5A21}
 		{FA35CBE8-6681-485B-B313-4B2BA5FE1CC0} = {6D833E73-91D8-47BE-BFCE-9406D233EBF1}
+		{C2826334-3E1C-43D0-8BBF-D061B634C6BE} = {6D833E73-91D8-47BE-BFCE-9406D233EBF1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {864DF4E6-5B5D-4BED-B223-0D60C4668B9F}
