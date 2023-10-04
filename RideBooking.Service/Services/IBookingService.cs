@@ -1,9 +1,10 @@
-﻿using RideBooking.Service.Dto;
+﻿using RideBooking.Infrastructure.Models;
+using RideBooking.Service.Dto;
 
 namespace RideBooking.Service.Services
 {
     public interface IBookingService
     {
-        Task<JournyDto> GetListingAsync(int passengers, string? name);
+        Task<Response<JournyDto>> GetListingAsync(int passengers, string? name);
     }
 }

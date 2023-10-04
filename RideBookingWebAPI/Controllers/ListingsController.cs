@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RideBooking.Service.Dto;
+using RideBooking.Infrastructure.Models;
 using RideBooking.Service.Services;
 
 namespace RideBookingWebAPI.Controllers
@@ -20,26 +20,19 @@ namespace RideBookingWebAPI.Controllers
         [HttpGet("{passengers:int}")]
         public async Task<IActionResult> GetListing(int passengers, string? name)
         {
-            var logPreFix = $"ListingsController::GetListing";
-            JournyDto response;
+            var response = await _bookingService.GetListingAsync(passengers, name);
 
-            if (passengers <= 0)
+            if (response.IsSuccessful == false)
             {
-                _logger.LogError($"{logPreFix} Incorrect parameter applied.");
+                string errorCode = response.ErrorMessages[0].ErrorCode;
 
-                return BadRequest("Number of passengers is incorrect.");
-            }
-            //ToDo:An error handler in middleware needs to add.
-            try
-            {
-                response = await _bookingService.GetListingAsync(passengers, name);
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
+                if (errorCode == ResponseCode.NotFound.ToString())
+                {
+                    return NotFound(response.ErrorMessages);
+                }
             }
 
-            return Ok(response);
+            return Ok(response.Data);
 
         }
     }

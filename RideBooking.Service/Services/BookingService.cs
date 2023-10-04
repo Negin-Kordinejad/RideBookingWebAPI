@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using RideBooking.Infrastructure.GateWay.ApiAgents.Listing;
+using RideBooking.Infrastructure.Models;
 using RideBooking.Model;
 using RideBooking.Service.Dto;
 
@@ -16,17 +17,25 @@ namespace RideBooking.Service.Services
             _bookingApiAgent = bookingApiAgent;
         }
 
-        public async Task<JournyDto> GetListingAsync(int passengers, string? name)
+        public async Task<Response<JournyDto>> GetListingAsync(int passengers, string? name)
         {
-            var logPriFix = $"BookingService::GetListingAsync:No listing found";
-            var listing = await _bookingApiAgent.GetListingByPassengersAsync();
-
-            //  var filteredListing =new IGrouping
-            //ToDo: In refactoring will make a response wrapper and middleware error handling to avoid try-cache
-            if (listing == null)
+            var logPriFix = $"BookingService::GetListingAsync::";
+            if (passengers <= 0)
             {
-                _logger.LogError($"{logPriFix} for GetListingByPassengersAsync");
-                throw new ArgumentException($"No listing found.");
+                _logger.LogError($"{logPriFix}Incorrect parameter applied.");
+                throw new ArgumentException("Number of passengers is incorrect.");
+            }
+            var response = new Response<JournyDto>();
+          
+            var listing = await _bookingApiAgent.GetListingByPassengersAsync();
+     
+            if (listing == null)
+            {  
+                _logger.LogError($"{logPriFix} No listing found for GetListingByPassengersAsync");
+                response.Data = null;
+                response.AddError(ResponseCode.NotFound.ToString(), "No listing found");
+               
+                return response;
             }
 
             //Get all listing with specific the number of passenger. 
@@ -40,8 +49,9 @@ namespace RideBooking.Service.Services
                 _logger.LogError($"{logPriFix} for {passengers} passengers numbers");
                 throw new ArgumentException($"No listing found for {passengers} passengers numbers.");
             }
+            response.Data = GetCalculatedTotalPriceListing(filteredListing, listing.from, listing.to);
 
-            return GetCalculatedTotalPriceListing(filteredListing, listing.from, listing.to);
+            return response;
         }
 
         private JournyDto GetCalculatedTotalPriceListing(List<Listing> filteredList, string source, string destination)

@@ -1,17 +1,24 @@
-﻿namespace RideBooking.Service.Test.Tests
+﻿using RideBooking.Infrastructure.Models;
+
+namespace RideBooking.Service.Test.Tests
 {
     [TestClass]
     public class BookingServiceTest : FunctionalTestBase
     {
         [TestMethod]
         [DynamicData(nameof(ApplyDataForNullTestCases))]
-        [ExpectedException(typeof(ArgumentException), "No listing found.")]
         public async Task GetListingAsync_WhenListingNotExists_ReturnArgumentExeption(int passenger, string? name)
         {
             //Arrange
             BookingApiAgent.ConfigureGetListingByPassengersAsyncToReturn(null);
+
             //Act
-            await BookingService.GetListingAsync(passenger, name);
+            var result = await BookingService.GetListingAsync(passenger, name);
+
+            //Assert
+            Assert.IsFalse(result.IsSuccessful);
+            Assert.IsTrue(result.ErrorMessages.Any());
+            Assert.IsTrue(result.ErrorMessages.First().ErrorCode == ResponseCode.NotFound.ToString());
 
         }
 
@@ -22,6 +29,7 @@
         {
             //Arrange
             BookingApiAgent.ConfigureGetListingByPassengersAsyncToReturn(JournyFixtures.Default);
+
             //Act
             await BookingService.GetListingAsync(passenger, name);
         }
@@ -37,7 +45,7 @@
             var result = await BookingService.GetListingAsync(passenger, name);
 
             //Accert
-            Assert.IsTrue(result.Result.Count > 0);
+            Assert.IsTrue(result.Data.Result.Count > 0);
         }
 
         [TestMethod]
@@ -51,7 +59,7 @@
             var result = await BookingService.GetListingAsync(passenger, name);
 
             //Accert
-            Assert.IsTrue(result.Result.Count > 0);
+            Assert.IsTrue(result.Data.Result.Count > 0);
         }
 
         [TestMethod]
@@ -66,8 +74,7 @@
 
             //Accert 
             // 100  20
-
-            result.Result.ForEach(x =>
+            result.Data.Result.ForEach(x =>
                 Assert.IsTrue(x.Name == "ListingVIPThree" || x.Name == "ListingThree"));
         }
 

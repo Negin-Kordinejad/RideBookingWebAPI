@@ -1,9 +1,9 @@
-using RideBooking.Infrastructure.GateWay.ApiAgents.Base;
 using RideBooking.Infrastructure.GateWay.ApiAgents.IpLocation;
 using RideBooking.Infrastructure.GateWay.ApiAgents.Listing;
 using RideBooking.Infrastructure.GateWay.ClientAgent.Web;
 using RideBooking.Infrastructure.GateWay.Config;
 using RideBooking.Service.Services;
+using RideBookingWebAPI.App_Start;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +32,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseGlobalErrorHandlingMiddleware();
 
 app.MapControllers();
 
