@@ -7,10 +7,10 @@ namespace RideBooking.Infrastructure.GateWay.ClientAgent.Web
         private readonly ILogger _logger;
         private readonly HttpClient _client;
 
-        public HttpService(ILogger<HttpService> logger)
+        public HttpService(ILogger<HttpService> logger, HttpClient httpClient) 
         {
             _logger = logger;
-            _client = new HttpClient();
+            _client = httpClient;
         }
 
         public async Task<string> Get(string url)

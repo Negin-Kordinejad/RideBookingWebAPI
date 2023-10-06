@@ -8,8 +8,8 @@ using RideBookingWebAPI.App_Start;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton<IHttpService, HttpService>()
-                .AddSingleton<ApiConfig>()
+builder.Services.AddSingleton<ApiConfig>()
+                //   .AddScoped<IHttpService, HttpService>()
                 .AddScoped<IBookingApiAgent, BookingApiAgent>()
                 .AddScoped<IBookingService, BookingService>()
                 .AddScoped<ILocationService, LocationService>()
@@ -19,6 +19,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient<IHttpService, HttpService>();
 
 var app = builder.Build();
 
