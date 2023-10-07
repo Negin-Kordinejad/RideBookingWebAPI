@@ -6,7 +6,7 @@ using RideBooking.Service.Services;
 using RideBookingWebAPI.App_Start;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddDataProtection();
 // Add services to the container.
 builder.Services.AddSingleton<ApiConfig>()
                 //   .AddScoped<IHttpService, HttpService>()

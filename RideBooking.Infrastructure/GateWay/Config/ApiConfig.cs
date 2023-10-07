@@ -1,5 +1,7 @@
 ﻿
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Configuration;
+using System.Runtime.CompilerServices;
 
 namespace RideBooking.Infrastructure.GateWay.Config
 {
@@ -14,13 +16,16 @@ namespace RideBooking.Infrastructure.GateWay.Config
         private const string IpStackUrlForLocation = "IpStack_Url";
         private const string IpStackCridentialForLocation = "IpStack_Cridential";
 
-        public ApiConfig(IConfiguration config)
+        public ApiConfig(IConfiguration config, IDataProtectionProvider idp)
         {
             _config = config;
             ListingUrl = _config.GetSection(ListingUrlForPassengers).Value!;
             ListingQuoteRequest = _config.GetSection(ListingQuoteRequestAction).Value!;
             IpStackUrl = _config.GetSection(IpStackUrlForLocation).Value!;
             IpStackCridential = _config.GetSection(IpStackCridentialForLocation).Value!;
+            var ctd = idp.CreateProtector(IpStackCridential);
+            var protect = ctd.Protect(IpStackCridential);
+            IpStackCridential = ctd.Unprotect(protect);
         }
 
 
@@ -28,10 +33,9 @@ namespace RideBooking.Infrastructure.GateWay.Config
 
         public string ListingQuoteRequest { get; private set; }
 
-        public string IpStackUrl { get; private set; }
 
         public string IpStackCridential { get; private set; }
 
+        public string IpStackUrl { get; private set; }
     }
 }
-
