@@ -23,6 +23,7 @@ namespace RideBooking.Infrastructure.GateWay.Config
             ListingQuoteRequest = _config.GetSection(ListingQuoteRequestAction).Value!;
             IpStackUrl = _config.GetSection(IpStackUrlForLocation).Value!;
             IpStackCridential = _config.GetSection(IpStackCridentialForLocation).Value!;
+            //Add a comment to for testing.
             var ctd = idp.CreateProtector(IpStackCridential);
             var protect = ctd.Protect(IpStackCridential);
             IpStackCridential = ctd.Unprotect(protect);
