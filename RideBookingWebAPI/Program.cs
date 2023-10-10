@@ -2,14 +2,15 @@ using RideBooking.Infrastructure.GateWay.ApiAgents.IpLocation;
 using RideBooking.Infrastructure.GateWay.ApiAgents.Listing;
 using RideBooking.Infrastructure.GateWay.ClientAgent.Web;
 using RideBooking.Infrastructure.GateWay.Config;
+using RideBooking.Infrastructure.Utility;
 using RideBooking.Service.Services;
 using RideBookingWebAPI.App_Start;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDataProtection();
+//builder.Services.AddDataProtection();
 // Add services to the container.
 builder.Services.AddSingleton<ApiConfig>()
-                //   .AddScoped<IHttpService, HttpService>()
+                .AddSingleton<IIdentityServiceUtility,IdentityServiceUtility>()
                 .AddScoped<IBookingApiAgent, BookingApiAgent>()
                 .AddScoped<IBookingService, BookingService>()
                 .AddScoped<ILocationService, LocationService>()

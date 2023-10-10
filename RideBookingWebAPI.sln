@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideBooking.Infrastructure"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideBooking.Service", "RideBooking.Service\RideBooking.Service.csproj", "{FA35CBE8-6681-485B-B313-4B2BA5FE1CC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideBooking.Service.Test", "RideBooking.Service.Test\RideBooking.Service.Test.csproj", "{C2826334-3E1C-43D0-8BBF-D061B634C6BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RideBooking.Service.Test", "RideBooking.Service.Test\RideBooking.Service.Test.csproj", "{C2826334-3E1C-43D0-8BBF-D061B634C6BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
