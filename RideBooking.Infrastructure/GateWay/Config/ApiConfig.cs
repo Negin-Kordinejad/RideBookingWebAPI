@@ -1,7 +1,5 @@
-﻿
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.Configuration;
-using System.Runtime.CompilerServices;
+﻿using Microsoft.Extensions.Configuration;
+using RideBooking.Infrastructure.Utility;
 
 namespace RideBooking.Infrastructure.GateWay.Config
 {
@@ -11,29 +9,42 @@ namespace RideBooking.Infrastructure.GateWay.Config
     public class ApiConfig
     {
         private readonly IConfiguration _config;
+        private const string Listing = "Listing";
+        private const string IpStack = "IpStack";
+        private const string Security = "Security";
+
+        private const string Key = "EncryptionKey";
+        private const string Ivector = "EncryptionIVector";
+
         private const string ListingUrlForPassengers = "Listing_Url";
         private const string ListingQuoteRequestAction = "Quote_Request";
-        private const string IpStackUrlForLocation = "IpStack_Url";
-        private const string IpStackCridentialForLocation = "IpStack_Cridential";
 
-        public ApiConfig(IConfiguration config, IDataProtectionProvider idp)
+        private const string IpStackUrlForLocation = "IpStack_Url";
+        private const string IpStackCridentialForLocation = "Cridential";
+
+
+        public ApiConfig(IConfiguration config, IIdentityServiceUtility ids)
         {
             _config = config;
-            ListingUrl = _config.GetSection(ListingUrlForPassengers).Value!;
-            ListingQuoteRequest = _config.GetSection(ListingQuoteRequestAction).Value!;
-            IpStackUrl = _config.GetSection(IpStackUrlForLocation).Value!;
-            IpStackCridential = _config.GetSection(IpStackCridentialForLocation).Value!;
-            //Add a comment to for testing.
-            var ctd = idp.CreateProtector(IpStackCridential);
-            var protect = ctd.Protect(IpStackCridential);
-            IpStackCridential = ctd.Unprotect(protect);
+
+            var securitySection = _config.GetSection(Security).AsEnumerable(true).ToDictionary(d => d.Key, d => d.Value);
+            securitySection.TryGetValue(Key, out string key);
+            securitySection.TryGetValue(Ivector, out string iVector);
+
+            var listingSection = _config.GetSection(Listing).AsEnumerable(true).ToDictionary(d => d.Key, d => d.Value);
+            ListingUrl = listingSection[ListingUrlForPassengers]!;
+            ListingQuoteRequest = listingSection[ListingQuoteRequestAction]!;
+
+            var IpStackSection = _config.GetSection(IpStack).AsEnumerable(true).ToDictionary(d => d.Key, d => d.Value);
+            IpStackUrl = IpStackSection[IpStackUrlForLocation]!;
+            var ipStackCridentialDecrypted = IpStackSection[IpStackCridentialForLocation]!;
+            IpStackCridential = ids.DeserializeData(ipStackCridentialDecrypted, key, iVector);
         }
 
 
         public string ListingUrl { get; private set; }
 
         public string ListingQuoteRequest { get; private set; }
-
 
         public string IpStackCridential { get; private set; }
 
