@@ -18,23 +18,23 @@ stages:
 - stage: Packges
   jobs: jobP
   steps:
-    - task: NuGetToolInstaller@1
+  - task: NuGetToolInstaller@1
 
-    - task: NuGetCommand@2
-      inputs:
-        restoreSolution: '$(solution)'
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(solution)'
 
 - stage: Test
   jobs: jobT
-    steps:
-    - task: VSTest@2
-      inputs:
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
+  steps:
+  - task: VSTest@2
+    inputs:
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
 
 - stage: Build
   jobs: jobB
-    steps:
+  steps:
     - task: VSBuild@1
       inputs:
         solution: '$(solution)'
@@ -43,15 +43,15 @@ stages:
 
 - stage: Pubish
   jobs: jobP
-    steps:
-    - task: DotNetCoreCLI@2
-      displayName: 'dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-      inputs:
-        command: publish
-        publishWebProjects: false
-        projects: 'RideBookingWebAPI/RideBookingWebAPI.csproj'
-        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-        zipAfterPublish: true
+  steps:
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    inputs:
+      command: publish
+      publishWebProjects: false
+      projects: 'RideBookingWebAPI/RideBookingWebAPI.csproj'
+      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: true
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'publish artifacts'
+  - task: PublishBuildArtifacts@1
+    displayName: 'publish artifacts'
