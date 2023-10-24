@@ -1,7 +1,4 @@
-﻿using AutoFixture;
-using RideBooking.Model;
-
-namespace RideBooking.Service.Test.Fixtures
+﻿namespace RideBooking.Service.Test.Fixtures
 {
     internal static class ListingFixtures
     {
@@ -42,7 +39,7 @@ namespace RideBooking.Service.Test.Fixtures
         .Create();
 
         internal static List<Listing> totalListing = new()
-        { ListingVIPForTwo, ListingVIPForThree, ListingVIPForFive, ListingForTwo, ListingForThree };
+        { ListingVIPForTwo, ListingVIPForThree, ListingVIPForFive, ListingForTwo, ListingForThree , ListingForFive};
 
 
     }

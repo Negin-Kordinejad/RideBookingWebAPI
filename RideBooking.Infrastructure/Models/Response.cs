@@ -72,6 +72,7 @@ namespace RideBooking.Infrastructure.Models
                 return "{}";
 
             var tmpStringList = list.Select(x => "{" + x + "}");
+
             return "[ " + string.Join(",", tmpStringList) + " ]";
         }
     }

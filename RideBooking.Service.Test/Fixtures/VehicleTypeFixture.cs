@@ -1,7 +1,4 @@
-﻿using AutoFixture;
-using RideBooking.Model;
-
-namespace RideBooking.Service.Test.Fixtures
+﻿namespace RideBooking.Service.Test.Fixtures
 {
     internal static class VehicleTypeFixture
     {

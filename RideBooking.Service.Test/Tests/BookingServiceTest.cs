@@ -7,7 +7,7 @@ namespace RideBooking.Service.Test.Tests
     {
         [TestMethod]
         [DynamicData(nameof(ApplyDataForNullTestCases))]
-        public async Task GetListingAsync_WhenListingNotExists_ReturnArgumentExeption(int passenger, string? name)
+        public async Task GetListingAsync_WhenListingNotExists_ReturnNotFound(int passenger, string? name)
         {
             //Arrange
             BookingApiAgent.ConfigureGetListingByPassengersAsyncToReturn(null);
@@ -97,7 +97,7 @@ namespace RideBooking.Service.Test.Tests
                 return new[]
                 {
                     new object[] { 30, "Benz" },
-                    new object[] { 2,"suv" }
+                    new object[] { 2, "suv" }
                 };
             }
         }
