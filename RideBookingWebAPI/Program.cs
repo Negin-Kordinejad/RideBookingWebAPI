@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddDataProtection();
 // Add services to the container.
 builder.Services.AddSingleton<ApiConfig>()
-                .AddSingleton<IIdentityServiceUtility,IdentityServiceUtility>()
+                .AddSingleton<IIdentityServiceUtility, IdentityServiceUtility>()
                 .AddScoped<IBookingApiAgent, BookingApiAgent>()
                 .AddScoped<IBookingService, BookingService>()
                 .AddScoped<ILocationService, LocationService>()

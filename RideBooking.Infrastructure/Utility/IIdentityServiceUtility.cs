@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RideBooking.Infrastructure.Utility
+﻿namespace RideBooking.Infrastructure.Utility
 {
     public interface IIdentityServiceUtility
     {
