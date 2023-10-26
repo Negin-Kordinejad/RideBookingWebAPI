@@ -18,7 +18,7 @@ namespace RideBooking.Service.Services
         
         public async Task<Location> IpLocator(string ipAddress)
         {
-            var logPreFix = $"LocationService::IpLocator";
+            var logPreFix = "LocationService::IpLocator";
             Location location;
 
             if (IsValidateIP(ipAddress))
@@ -28,7 +28,7 @@ namespace RideBooking.Service.Services
             else
             {
                 _logger.LogError($"{logPreFix} Wrong Ip address provided.");
-                throw new ArgumentException($"Ip:{ipAddress} is invalid:");
+                throw new ArgumentException($"Ip:{ipAddress.Replace('.','_')} is invalid:");
             }
 
             return location;
@@ -36,7 +36,7 @@ namespace RideBooking.Service.Services
 
         private bool IsValidateIP(string Address)
         {
-            Regex check = new(Pattern);
+            Regex check = new(Pattern,RegexOptions.None, TimeSpan.FromMilliseconds(100));
 
             if (string.IsNullOrEmpty(Address))
             {
