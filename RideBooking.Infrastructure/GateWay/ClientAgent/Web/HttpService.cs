@@ -15,11 +15,11 @@ namespace RideBooking.Infrastructure.GateWay.ClientAgent.Web
 
         public async Task<string> Get(string url)
         {
-            _logger.LogInformation($"HttpService::Get({url})");
+            _logger.LogInformation("HttpService::Get({url})", url);
 
             var httpResponse = await _client.GetAsync(url);
 
-            _logger.LogInformation($"Respnose.StatusCode: {httpResponse.StatusCode}");
+            _logger.LogInformation("Respnose.StatusCode: {httpResponse.StatusCode}", httpResponse.StatusCode);
 
             httpResponse.EnsureSuccessStatusCode();
 

@@ -19,9 +19,14 @@ namespace RideBookingWebAPI.Controllers
         [HttpGet("{ipAddress}")]
         public async Task<IActionResult> GetIpLocation(string ipAddress)
         {
-          
+
             try
             {
+                if (string.IsNullOrWhiteSpace(ipAddress))
+                {
+                    return BadRequest("Ip is not provided.");
+                }
+                
                 Location City = await _locationService.IpLocator(ipAddress);
                 if (City != null)
                 {
